@@ -14,9 +14,10 @@ class WebUploaderWidget extends InputWidget
     public $thumb = null;
     public $thumbs = [];
     public $url_prefix;
+    public $folder;
 
     public $parts = [];
-    public $widgetTemplate = "{input}\n{picker}\n{cropper}\n{thumbnail}\n{upload}";
+    public $widgetTemplate = "<p>{input}\n{picker}</p>\n{cropper}\n{thumbnail}\n{progress}<p>{upload}</p>";
 
     public function init()
     {
@@ -50,6 +51,7 @@ class WebUploaderWidget extends InputWidget
         $this->cropper();
         $this->thumbnail();
         $this->upload();
+        $this->progress();
 
         $content = strtr($this->widgetTemplate, $this->parts);
 
@@ -65,6 +67,7 @@ class WebUploaderWidget extends InputWidget
 
     public function input()
     {
+        $this->options['data-folder'] = $this->folder;
         $this->parts['{input}'] = Html::activeHiddenInput($this->model, $this->attribute, $this->options);
         return $this;
     }
@@ -77,7 +80,7 @@ class WebUploaderWidget extends InputWidget
     {
         $this->parts['{cropper}'] = Html::beginTag('div', ['class' => $this->id.'-cropper-wrapper', 'style' => 'display:none;']);
         $this->parts['{cropper}'] .= Html::beginTag('div',['class' => 'img-container', 'style' => 'max-height:300px;']);
-        $this->parts['{cropper}'] .= Html::img('');
+        $this->parts['{cropper}'] .= Html::img(null);
         $this->parts['{cropper}'] .= Html::endTag('div');
         $this->parts['{cropper}'] .= Html::endTag('div');
         return $this;
@@ -112,7 +115,7 @@ class WebUploaderWidget extends InputWidget
                 $max_width = $config['width'];
 
             $this->parts['{thumbnail}'] .= Html::beginTag('div', ['class' => $this->id.'-img-preview', 'style' =>
-                'height:'.$config['height'].'px; width:'.$config['width'].'px; margin-top: 1px;']);
+                'height:'.$config['height'].'px; width:'.$config['width'].'px;']);
             $this->parts['{thumbnail}'] .= '<img src="'.$this->url_prefix.$value.'" alt="" />';
             $this->parts['{thumbnail}'] .= Html::endTag('div');
         }
@@ -123,6 +126,13 @@ class WebUploaderWidget extends InputWidget
     public function upload()
     {
         $this->parts['{upload}'] = Html::tag('button', '上传图片', ['id' => $this->id.'-upload', 'class'=>'btn btn-primary', 'style'=>'display:none;']);
+        return $this;
+    }
+    public function progress()
+    {
+        $this->parts['{progress}'] = Html::beginTag('div', ['id' => $this->id.'-progress', 'class' => 'progress', 'style'=>'display:none;']);
+        $this->parts['{progress}'] .= Html::tag('div', '', ['class'=>'progress-bar progress-bar-success', 'role' => 'progressbar']);
+        $this->parts['{progress}'] .= Html::endTag('div');
         return $this;
     }
 }

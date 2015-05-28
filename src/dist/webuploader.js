@@ -948,14 +948,14 @@
                 container = $( document.createElement('div') );
     
                 container.attr( 'id', 'rt_' + this.uid );
-                container.css({
-                    position: 'absolute',
-                    top: '0px',
-                    left: '0px',
-                    width: '1px',
-                    height: '1px',
-                    overflow: 'hidden'
-                });
+                //container.css({
+                //    position: 'absolute',
+                //    top: '0px',
+                //    left: '0px',
+                //    width: '1px',
+                //    height: '1px',
+                //    overflow: 'hidden'
+                //});
     
                 parent.append( container );
                 parent.addClass('webuploader-container');
@@ -4885,21 +4885,21 @@
     
                 input.attr( 'type', 'file' );
                 input.attr( 'name', opts.name );
-                input.addClass('webuploader-element-invisible');
+                //input.addClass('webuploader-element-invisible');
     
-                label.on( 'click', function() {
-                    input.trigger('click');
-                    owner.trigger('dialogopen');
-                });
+                //label.on( 'click', function() {
+                //    input.trigger('click');
+                //    owner.trigger('dialogopen');
+                //});
     
-                label.css({
-                    opacity: 0,
-                    width: '100%',
-                    height: '100%',
-                    display: 'block',
-                    cursor: 'pointer',
-                    background: '#ffffff'
-                });
+                //label.css({
+                //    opacity: 0,
+                //    width: '100%',
+                //    height: '100%',
+                //    display: 'block',
+                //    cursor: 'pointer',
+                //    background: '#ffffff'
+                //});
     
                 if ( opts.multiple ) {
                     input.attr( 'multiple', 'multiple' );
@@ -4917,8 +4917,9 @@
                 }
     
                 container.append( input );
-                container.append( label );
-    
+                //container.append( label );
+                input.filestyle({buttonText: '选择图片', input: false, buttonName: "btn-primary", badge: false});
+
                 mouseHandler = function( e ) {
                     owner.trigger( e.type );
                 };

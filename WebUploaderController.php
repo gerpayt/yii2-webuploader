@@ -97,7 +97,12 @@ class WebUploaderController extends Controller
         // Settings
         // $targetDir = ini_get("upload_tmp_dir") . DIRECTORY_SEPARATOR . "plupload";
         $targetDir = Yii::getAlias('@runtime') . '/upload_tmp';
-        $uploadDir = Yii::$app->params['UPLOAD_BASE_PATH'] . '/company/' . $cid. '/banner/';
+        $folder = Yii::$app->request->post('folder');
+        if(!array_key_exists($folder, Yii::$app->params['uploadFolders'])){
+            return ["jsonrpc" => "2.0", "error" => ["code"=> 110, "message" => "Failed to locate upload folder."], "id" => "id"];
+        }
+        $dirName = call_user_func(Yii::$app->params['uploadFolders'][$folder]);
+        $uploadDir = Yii::$app->params['UPLOAD_BASE_PATH'] . '/'.$dirName;
 
         $cleanupTargetDir = true; // Remove old files
         $maxFileAge = 5 * 3600; // Temp file age in seconds
@@ -214,8 +219,10 @@ class WebUploaderController extends Controller
             @fclose($out);
         }
 
+        $fileFullName = $dirName.$fileName;
+
         // Return Success JSON-RPC response
-        return ["jsonrpc" => "2.0", "result" => null, "id" => "id", 'filename' => 'company/' . $cid. '/banner/'.$fileName];
+        return ["jsonrpc" => "2.0", "result" => null, "id" => "id", 'filename' => $fileFullName];
     }
 
 }
