@@ -1,0 +1,28 @@
+{
+    "name": "gerpayt/yii2-webuploader",
+    "description": "WebUploader是一个文件上传组件。",
+    "keywords": ["yii2", "image", "upload"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/gerpayt/yii2-webuploader/issues",
+        "source": "https://github.com/gerpayt/yii2-webuploader"
+    },
+    "authors": [
+        {
+            "name": "fex-team"
+        },
+        {
+            "name": "Chen Feng",
+            "email": "gerpayt@qq.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "gerpayt\\yii2_webuploader\\": ""
+        }
+    }
+}
