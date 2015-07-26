@@ -20,7 +20,6 @@ use company\filters\CompanyInfoChecked;
 class WebUploaderController extends Controller
 {
 
-
     public function beforeAction($action)
     {
         Yii::$app->request->enableCsrfValidation = false;

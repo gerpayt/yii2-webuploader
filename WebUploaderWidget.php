@@ -142,3 +142,4 @@ class WebUploaderWidget extends InputWidget
         return $this;
     }
 }
+
