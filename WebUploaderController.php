@@ -70,7 +70,7 @@ class WebUploaderController extends Controller
             return ["jsonrpc" => "2.0", "error" => ["code"=> 110, "message" => "Failed to locate upload folder."], "id" => "id"];
         }
         $dirName = call_user_func(Yii::$app->params['uploadFolders'][$folder]);
-        $uploadDir = Yii::$app->params['UPLOAD_BASE_PATH'] . '/'.$dirName;
+        $uploadDir = Yii::getAlias('@upload/').$dirName;
 
         $cleanupTargetDir = true; // Remove old files
         $maxFileAge = 5 * 3600; // Temp file age in seconds
